@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoBdArticMEBC">
+
+	<select id="sltOneArtic" resultType="articDto">
+		SELECT * FROM BOARD WHERE POSTNUM = #{postNum}
+	</select>
+
+	<select id="maxPostNum" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(POSTNUM)), 0) FROM BOARD
+	</select>
+
+	<insert id="insertArtic" parameterType="articDto">
+		INSERT INTO BOARD 
+		VALUES ( #{postNum, jdbcType=VARCHAR}, #{mbrCode}, #{ctg}, #{writer}, #{title}, SYSDATE, #{readCnt}, #{likeCnt}, #{articPath}, #{articImgPath, jdbcType=VARCHAR} )
+	</insert>
+	
+	<update id="updateArtic" parameterType="articDto">
+		UPDATE BOARD SET
+		       MBRCODE = #{mbrCode},
+		       CTG = #{ctg}, 
+		       WRITER = #{writer}, 
+		       TITLE = #{title}, 
+		       REGDATE = SYSDATE, 
+		       READCNT = #{readCnt}, 
+		       ARTICPATH = #{articPath}, 
+		       ARTICIMGPATH = #{articImgPath}, 
+		       LIKECNT = #{likeCnt} 
+	    WHERE  POSTNUM = #{postNum}
+	</update>
+	
+	<delete id="deleteArtic" parameterType="String">
+		DELETE FROM BOARD WHERE POSTNUM = #{postNum}
+	</delete>
+	
+	<select id="likeOne" resultType="likeDto">
+		SELECT * FROM LIKES WHERE POSTNUM = #{postNum} AND MBRCODE = #{mbrCode}
+	</select>
+	
+	<insert id="likeInsert" parameterType="likeDto">
+		INSERT INTO LIKES VALUES ( #{postNum}, #{mbrCode} )
+	</insert>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoNMbrMEBC">
+
+	
+	<select id="nMbrSeqMax" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM (SELECT NMBRCODE FROM NMBR)
+  	</select>
+  
+    <insert id="userInsert" parameterType="ucDto">
+		INSERT INTO SITEUSER 
+		VALUES (#{userCode}, #{userChk})
+	</insert>
+   
+   	<insert id="nMbrInsert" parameterType="nMbrDto">
+		INSERT INTO NMBR 
+		VALUES (#{nMbrCode}, #{nmName}, #{nmTel})
+	</insert>
+	
+	
+	
+</mapper>

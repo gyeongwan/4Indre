@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoSeqMEBC">
+
+  	<select id="ptSeqMax" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM (SELECT PTSEQ FROM POINTHIST
+		WHERE MBRCODE = '${mbrCode}')
+  	</select>
+  	
+	<insert id="ptInsert" parameterType="ptDto">
+		INSERT INTO POINTHIST VALUES (#{mbrCode}, #{ptSeq}, #{ptDate}, 
+									  #{ptLog}, #{usePt}, #{savePt})
+	</insert>
+	
+	<select id="sltCtnName" resultType="String">
+		SELECT CTNNAME FROM CONTENT
+		WHERE CTNCODE = '${ctnCode}'
+  	</select>
+  	
+  	<select id="ptSeqMax2" resultType="int">
+      SELECT NVL(MAX(ROWNUM), 0)
+      FROM (SELECT PTSEQ FROM POINTHIST)
+    </select>
+
+</mapper>

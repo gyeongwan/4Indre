@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoMyPageQEBC">
+
+  	<select id="allPtList" resultType="ptDto">
+  		<![CDATA[
+		SELECT * FROM POINTHIST
+		WHERE MBRCODE = #{code}
+		ORDER BY PTDATE DESC
+		]]>
+  	</select>
+  	
+  	<select id="ptSltMulti" parameterType="map" resultType="ptDto">
+  		<![CDATA[
+		SELECT * FROM POINTHIST
+		WHERE PTDATE BETWEEN #{stdt} AND #{eddt}
+		AND MBRCODE = #{code}
+		ORDER BY PTDATE DESC
+		]]>
+  	</select>
+  	
+  	<select id="allStdList" resultType="stdDto">
+  		<![CDATA[
+		SELECT * FROM STDHIST
+		WHERE MBRCODE = #{code}
+		ORDER BY STDDATE DESC
+		]]>
+  	</select>
+  	
+  	<select id="stdSltMulti" parameterType="map" resultType="stdDto">
+  		<![CDATA[
+		SELECT * FROM STDHIST
+		WHERE STDDATE BETWEEN #{stdt} AND #{eddt}
+		AND MBRCODE = #{code}
+		ORDER BY STDDATE DESC
+		]]>
+  	</select>
+
+</mapper>

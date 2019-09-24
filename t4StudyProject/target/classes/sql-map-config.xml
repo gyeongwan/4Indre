@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.project.dto.MbrDto"      alias="mbrDto"></typeAlias>
+		<typeAlias type="com.project.dto.NMbrDto"     alias="nMbrDto"></typeAlias>
+		<typeAlias type="com.project.dto.UserCodeDto" alias="ucDto"></typeAlias>
+		<typeAlias type="com.project.dto.PtHistDto"   alias="ptDto"></typeAlias>
+		<typeAlias type="com.project.dto.StdHistDto"  alias="stdDto"></typeAlias>
+		<typeAlias type="com.project.dto.CtnDto"      alias="ctnDto"></typeAlias>
+		<typeAlias type="com.project.dto.PaymentDto"  alias="paymentDto"></typeAlias>
+		<typeAlias type="com.project.dto.DonationDto" alias="donationDto"></typeAlias>
+		<typeAlias type="com.project.dto.BdArticDto"  alias="articDto"></typeAlias>
+		<typeAlias type="com.project.dto.BdLikeDto"   alias="likeDto"></typeAlias>
+		<typeAlias type="com.project.dto.BdReDto"     alias="reDto"></typeAlias>
+		<typeAlias type="com.project.dto.MyBoardDto"  alias="MyBoardDto"></typeAlias>
+	</typeAliases>
+</configuration>

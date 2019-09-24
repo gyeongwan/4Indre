@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoBdReplyMEBC">
+
+	<select id="sltOneRe" resultType="reDto">
+		SELECT * FROM REPLY WHERE POSTNUM = #{postNum} AND RENUM = #{reNum}
+	</select>
+
+	<select id="maxReNum" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(RENUM)), 0) FROM REPLY WHERE POSTNUM = #{postNum}
+	</select>
+
+	<insert id="insertRe" parameterType="reDto">
+		INSERT INTO REPLY VALUES ( #{postNum}, #{reNum}, #{mbrCode}, #{reRef}, #{reOrder}, #{reDept}, #{reWriter}, SYSDATE, #{rePath}, #{reImgPath, jdbcType=VARCHAR} )
+	</insert>
+	
+	<update id="updateReOrder">
+		 <![CDATA[UPDATE REPLY SET REORDER = REORDER + 1 WHERE REORDER > #{reOrder}]]>
+	</update>
+	
+	<update id="updateRe" parameterType="reDto">
+		UPDATE REPLY SET MBRCODE = #{mbrCode}, REORDER = #{reOrder}, REDEPT = #{reDept}, REWRITER = #{reWriter}, REDATE = SYSDATE, REPATH = #{rePath}, REIMGPATH = #{reImgPath, jdbcType=VARCHAR} WHERE POSTNUM = #{postNum} AND RENUM = #{reNum}
+	</update>
+	
+	<delete id="deleteRe" parameterType="String">
+		DELETE FROM REPLY WHERE POSTNUM = #{postNum} AND RENUM = #{reNum}
+	</delete>
+	
+</mapper>

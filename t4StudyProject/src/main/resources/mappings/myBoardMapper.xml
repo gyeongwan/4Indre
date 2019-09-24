@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.MyBoardDto">
+
+	<select id="selectBoardList" parameterType="MyBoardDto" resultType="MyBoardDto">
+		SELECT * FROM MYBOARD
+	</select>
+<!--  
+	<select id="maxCodeNum" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(CODE)), 0) FROM MYBOARD
+	</select>
+-->
+	<insert id="inserBoard">
+		INSERT INTO MYBOARD
+		VALUES ( #{code}, #{title}, #{content}, #{writer}, #{reg_datetime} )
+	</insert>
+	
+	<update id="updateBoard">
+		UPDATE MYBOARD SET 
+		       TITLE = #{title},
+		       CONTENT = #{content},
+		       WRITER = #{writer},
+		       REQ_DATETIME = SYSDATE
+	    WHERE  CODE = #{code}
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE FROM MYBOARD WHERE CODE = #{code}
+	</delete>
+	
+	<select id="selectBoardByCode" parameterType="MyBoardDto" resultType="MyBoardDto">
+		SELECT * FROM MYBOARD WHERE CODE = #{code}
+	</select>
+</mapper>

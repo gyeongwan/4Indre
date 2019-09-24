@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoBoardQEBC">
+
+	<select id="sltList" resultType="articDto">
+		SELECT * FROM ( SELECT o.*                           
+	    	         , ROWNUM RNUM                  
+	       	FROM (  SELECT *                     
+	        	    FROM   BOARD            
+	            	WHERE  CTG = #{ctg}    
+	                ORDER  BY TO_NUMBER(POSTNUM) DESC 
+	               ) O )
+        <![CDATA[
+		WHERE RNUM   >= #{start}                           
+		AND   ROWNUM <= #{end}
+		]]>   
+	</select>
+	
+	<select id="schTitle" resultType="articDto">
+		SELECT * FROM ( SELECT o.*                           
+	    	         , ROWNUM RNUM                  
+	       	FROM (  SELECT *                     
+	        	    FROM   BOARD            
+	            	WHERE  CTG = #{ctg}
+	            	AND    TITLE LIKE #{word}   
+	                ORDER  BY TO_NUMBER(POSTNUM) DESC
+	               ) O )
+        <![CDATA[
+		WHERE RNUM   >= #{start}                           
+		AND   ROWNUM <= #{end}
+		]]> 
+	</select>
+	
+	<select id="schName" resultType="articDto">
+		SELECT * FROM ( SELECT o.*                           
+	    	         , ROWNUM RNUM                  
+	       	FROM (  SELECT *                     
+	        	    FROM   BOARD            
+	            	WHERE  CTG = #{ctg}
+	            	AND    WRITER LIKE #{word}   
+	                ORDER  BY TO_NUMBER(POSTNUM) DESC
+	               ) O )
+        <![CDATA[
+		WHERE RNUM   >= #{start}                           
+		AND   ROWNUM <= #{end}
+		]]> 
+	</select>
+	
+	<select id="sltArtic" resultType="articDto">
+		SELECT * FROM BOARD WHERE POSTNUM = #{postNum, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="sltRe" resultType="reDto">
+		SELECT * FROM ( SELECT o.*                           
+	    	         , ROWNUM RNUM                  
+	       	FROM (  SELECT *                     
+	        	    FROM   REPLY            
+	            	WHERE  POSTNUM = #{postNum}    
+	                ORDER  BY TO_NUMBER(RENUM) 
+	               ) O )
+        <![CDATA[
+		WHERE RNUM   >= #{start}                           
+		AND   ROWNUM <= #{end}
+		]]>   
+	</select>
+	
+	<select id="maxReOrder" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(REORDER)), 0) FROM REPLY WHERE POSTNUM = #{postNum}
+	</select>
+	
+	<select id="maxRefOrder" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(REORDER)), 0) FROM REPLY WHERE POSTNUM = #{postNum} AND REREF = #{reRef}
+	</select>
+	
+	<select id="chkRef" resultType="int">
+		SELECT COUNT(*) FROM REPLY WHERE POSTNUM = #{postNum} AND REREF = #{reRef}
+	</select>
+	
+</mapper>

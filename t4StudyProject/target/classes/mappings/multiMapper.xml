@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoPaymentQEBC">
+
+    
+	<select id="payNumberMax" resultType="int">
+	    SELECT MAX(TO_NUMBER(dntNum)) from PAYMENT
+	</select>
+
+
+    <select id="dntSltQEBC" resultType="donationDto">
+		 SELECT * FROM DONATION
+	</select>
+	
+    <select id="dntSltMEBC" parameterType="hashMap" resultType="paymentDto">
+		 SELECT * FROM ( SELECT o.*                           
+	    	         , ROWNUM RNUM                  
+	       	FROM ( SELECT PAYMTHD,DNTMNY,PAYDATE 
+	       	       FROM PAYMENT 
+	       	       WHERE USERCODE = #{userCode}
+		           ORDER BY paydate DESC
+		           ) o )
+		 <![CDATA[
+		 WHERE RNUM    >= #{start}
+		 AND   ROWNUM  <= #{end}
+		 ]]>
+	</select>
+	
+	
+	
+</mapper>

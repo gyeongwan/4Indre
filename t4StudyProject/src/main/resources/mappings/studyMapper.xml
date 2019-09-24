@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoStudyQEBC">
+
+  	<select id="stdSltMulti" resultType="ctnDto">
+		<![CDATA[
+		SELECT * FROM CONTENT
+		WHERE CTNCODE LIKE #{param}||'%'	
+		ORDER BY CTNDATE
+		]]>
+  	</select>
+  	
+  	<select id="smSltMulti" resultType="ctnDto">
+		<![CDATA[
+		SELECT * FROM CONTENT
+		WHERE CTNCODE LIKE #{param}||'%'	
+		ORDER BY CTNDATE
+		]]>
+  	</select>
+	
+</mapper>

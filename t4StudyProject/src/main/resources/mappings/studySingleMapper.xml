@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.IDaoStudyMEBC">
+
+  	<select id="sltPoint" resultType="int">
+		SELECT CTNPOINT FROM CONTENT
+		WHERE CTNCODE = '${ctnCode}'
+  	</select>
+  	
+	<select id="stdSeqMax" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM (SELECT STDSEQ FROM STDHIST
+		WHERE MBRCODE = '${mbrCode}')
+  	</select>
+	
+	<insert id="insStdHist" parameterType="stdDto">
+		INSERT INTO STDHIST VALUES (#{mbrCode}, #{stdSeq}, #{ctnCode}, 
+									#{stdDate}, #{stdPoint})
+	</insert>
+	
+	<insert id="insPtHist" parameterType="ptDto">
+		INSERT INTO POINTHIST VALUES (#{mbrCode}, #{ptSeq}, #{ptDate}, 
+									#{ptLog}, #{usePt}, #{savePt})
+	</insert>
+	
+	<update id="updateP">
+		UPDATE MBR SET POINT = (POINT + #{point})
+		WHERE MBRCODE = #{mbrCode}
+    </update>
+	
+</mapper>
